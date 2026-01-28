@@ -1,9 +1,24 @@
-import "dotenv/config"
-import express from 'express';
-const app = express();
-const port = process.env.PORT
+import {createServer} from "http"
+import express from "express"
+import { Server } from "socket.io";
+const app = express()
+const httpServer = createServer(app);
+const socket = new Server(httpServer,{})
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+
+socket.on("connection",(socket)=>{
+  console.log("connected in the websocket")
+  console.log(socket);
+  
 })
+
+
+httpServer.listen(process.env.PORT,()=>{
+  console.log("server is running")
+})
+
+
+
+
+
 
